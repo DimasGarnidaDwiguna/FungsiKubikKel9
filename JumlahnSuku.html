@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fungsi Kubik</title>
+
+    <!-- link icon -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="shortcut icon" type="img/png" href="img/Stofun.png" />
+
+    <!-- link fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- cascading style sheets -->
+    <link rel="stylesheet" href="./css/menghitung.css" />
+  </head>
+
+  <body>
+    <!-- Navigasi bar start -->
+    <nav class="navbar">
+      <a href="./Index.html#home" class="navbar-logo"
+        >Kalkulus 1 <span> Fungsi Kubik </span>.</a
+      >
+      <div class="navbar-nav">
+        <a href="./Index.html#home">Home</a>
+        <a href="./Index.html#about">Perihal Website</a>
+      </div>
+    </nav>
+
+    <div
+      style="
+        background: rgba(40, 16, 78, 1);
+        padding: 100px;
+        color: white;
+        border-radius: 40px;
+      "
+    >
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <title>Calculate Cubic Function and Graph</title>
+          <!-- Load Chart.js -->
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              max-width: 800px;
+              margin: 70px auto;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Fungsi kubik Dan Grafiknya</h1>
+
+          <label for="aInput">Masukan Nilai a:</label>
+          <input type="number" id="aInput" placeholder="Contoh: 1" />
+
+          <label for="bInput">Masukan Nilai b:</label>
+          <input type="number" id="bInput" placeholder="Contoh: 2" />
+
+          <label for="cInput">Masukan Nilai c:</label>
+          <input type="number" id="cInput" placeholder="Contoh: 3" />
+
+          <label for="dInput">Masukan Nilai d:</label>
+          <input type="number" id="dInput" placeholder="Contoh: 4" />
+
+          <button onclick="calculateCubicFunction()">Hitung Fungsi</button>
+
+          <h2>Hasil Fungsi:</h2>
+          <p id="functionResults"></p>
+
+          <h2>Grafik:</h2>
+          <canvas id="myChart" width="400" height="200"></canvas>
+
+          <script>
+            function calculateCubicFunction() {
+              var a = parseInt(document.getElementById("aInput").value);
+              var b = parseInt(document.getElementById("bInput").value);
+              var c = parseInt(document.getElementById("cInput").value);
+              var d = parseInt(document.getElementById("dInput").value);
+
+              var xValues = [];
+              var yValues = [];
+
+              // Peningkatan jumlah titik untuk akurasi lebih baik
+              for (var x = -10; x <= 10; x += 0.01) {
+                xValues.push(Math.round(x * 100) / 100); // Mengonversi ke bilangan bulat
+                yValues.push(
+                  Math.round((a * x ** 3 + b * x ** 2 + c * x + d) * 100) / 100
+                ); // Mengonversi ke bilangan bulat
+              }
+
+              var functionResults = `Function: f(x) = ${a}x^3 + ${b}x^2 + ${c}x + ${d}`;
+              document.getElementById("functionResults").innerText =
+                functionResults;
+
+              // Mencari rentang minimum dan maksimum dari hasil fungsi
+              var minY = Math.min(...yValues);
+              var maxY = Math.max(...yValues);
+
+              var data = {
+                labels: xValues,
+                datasets: [
+                  {
+                    label: "Cubic Function",
+                    borderColor: "rgb(75, 192, 192)",
+                    data: yValues,
+                    fill: false,
+                  },
+                ],
+              };
+
+              var ctx = document.getElementById("myChart").getContext("2d");
+              var myChart = new Chart(ctx, {
+                type: "line",
+                data: data,
+                options: {
+                  scales: {
+                    x: {
+                      type: "linear",
+                      position: "bottom",
+                    },
+                    y: {
+                      type: "linear",
+                      position: "left",
+                      min: minY - 10, // Menyesuaikan rentang minimum
+                      max: maxY + 10, // Menyesuaikan rentang maksimum
+                    },
+                  },
+                },
+              });
+            }
+          </script>
+        </body>
+      </html>
+    </div>
+  </body>
+</html>
